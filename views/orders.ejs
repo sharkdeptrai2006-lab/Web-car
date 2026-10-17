@@ -1,0 +1,48 @@
+<!-- views/orders.ejs -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đơn hàng của tôi - Mercedes-Benz Car Shop</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include('partials/header') %>
+
+    <section class="orders-section">
+        <h2>Đơn hàng của tôi</h2>
+
+        <% if (success) { %>
+            <p class="order-success">✅ Đặt xe thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất.</p>
+        <% } %>
+
+        <% if (orders.length === 0) { %>
+            <p>Bạn chưa có đơn hàng nào. <a href="/cars">Xem danh sách xe</a></p>
+        <% } else { %>
+            <% orders.forEach(order => { %>
+                <div class="order-card">
+                    <div class="order-header">
+                        <span>Đơn hàng #<%= order.OrderID %></span>
+                        <span class="order-status status-<%= order.Status.toLowerCase() %>"><%= order.Status %></span>
+                    </div>
+                    <p class="order-date">Ngày đặt: <%= new Date(order.OrderDate).toLocaleDateString('vi-VN') %></p>
+                    <% order.items.forEach(item => { %>
+                        <div class="order-item">
+                            <span><%= item.CarName %> x<%= item.Quantity %></span>
+                            <span><%= item.Subtotal.toLocaleString('vi-VN') %> VNĐ</span>
+                        </div>
+                    <% }) %>
+                    <div class="order-total">
+                        Tổng: <strong><%= order.TotalAmount.toLocaleString('vi-VN') %> VNĐ</strong>
+                    </div>
+                </div>
+            <% }) %>
+        <% } %>
+    </section>
+
+    <%- include('partials/footer') %>
+
+</body>
+</html>

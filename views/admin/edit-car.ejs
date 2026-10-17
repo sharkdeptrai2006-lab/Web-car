@@ -1,0 +1,111 @@
+<!-- views/admin/edit-car.ejs -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sửa xe - Admin</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include('../partials/admin-header') %>
+
+    <section class="admin-content">
+        <h2>Sửa thông tin xe: <%= car.CarName %></h2>
+
+        <% if (error) { %>
+            <p class="auth-error"><%= error %></p>
+        <% } %>
+
+        <form action="/admin/cars/edit/<%= car.CarID %>" method="POST" class="admin-form">
+            <div class="form-row">
+                <div>
+                    <label>Tên xe</label>
+                    <input type="text" name="carName" value="<%= car.CarName %>" required>
+                </div>
+                <div>
+                    <label>Model</label>
+                    <input type="text" name="model" value="<%= car.Model %>" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label>Danh mục</label>
+                    <select name="categoryId" required>
+                        <% categories.forEach(cat => { %>
+                            <option value="<%= cat.CategoryID %>" <%= cat.CategoryID === car.CategoryID ? 'selected' : '' %>>
+                                <%= cat.CategoryName %>
+                            </option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div>
+                    <label>Giá (VNĐ)</label>
+                    <input type="number" name="price" value="<%= car.Price %>" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label>Năm sản xuất</label>
+                    <input type="number" name="year" value="<%= car.Year %>" required>
+                </div>
+                <div>
+                    <label>Màu sắc</label>
+                    <input type="text" name="color" value="<%= car.Color %>" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label>Động cơ</label>
+                    <input type="text" name="engine" value="<%= car.Engine %>" required>
+                </div>
+                <div>
+                    <label>Công suất (HP)</label>
+                    <input type="number" name="horsepower" value="<%= car.Horsepower %>" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label>Nhiên liệu</label>
+                    <input type="text" name="fuelType" value="<%= car.FuelType %>" required>
+                </div>
+                <div>
+                    <label>Hộp số</label>
+                    <input type="text" name="transmission" value="<%= car.Transmission %>" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label>Số ghế</label>
+                    <input type="number" name="seats" value="<%= car.Seats %>" required>
+                </div>
+                <div>
+                    <label>Số lượng trong kho</label>
+                    <input type="number" name="quantity" value="<%= car.Quantity %>" required>
+                </div>
+            </div>
+
+            <label>Tên file ảnh</label>
+            <input type="text" name="image" value="<%= car.Image %>">
+
+            <label>Trạng thái</label>
+            <select name="status">
+                <option value="ACTIVE" <%= car.Status === 'ACTIVE' ? 'selected' : '' %>>ACTIVE</option>
+                <option value="INACTIVE" <%= car.Status === 'INACTIVE' ? 'selected' : '' %>>INACTIVE</option>
+            </select>
+
+            <label>Mô tả</label>
+            <textarea name="description" rows="4" required><%= car.Description %></textarea>
+
+            <button type="submit" class="btn-dark auth-submit">Lưu thay đổi</button>
+        </form>
+    </section>
+
+</body>
+</html>

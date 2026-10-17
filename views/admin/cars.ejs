@@ -1,0 +1,54 @@
+<!-- views/admin/cars.ejs -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý xe - Admin</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include('../partials/admin-header') %>
+
+    <section class="admin-content">
+        <div class="admin-content-header">
+            <h2>Quản lý xe</h2>
+            <a href="/admin/cars/add" class="btn-dark">+ Thêm xe mới</a>
+        </div>
+
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên xe</th>
+                    <th>Danh mục</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% cars.forEach(car => { %>
+                    <tr>
+                        <td><%= car.CarID %></td>
+                        <td><%= car.CarName %></td>
+                        <td><%= car.CategoryName %></td>
+                        <td><%= car.Price.toLocaleString('vi-VN') %> VNĐ</td>
+                        <td><%= car.Quantity %></td>
+                        <td><%= car.Status %></td>
+                        <td class="admin-actions">
+                            <a href="/admin/cars/edit/<%= car.CarID %>" class="btn-outline">Sửa</a>
+                            <form action="/admin/cars/delete/<%= car.CarID %>" method="POST" style="display:inline;" onsubmit="return confirm('Bạn chắc chắn muốn xóa xe này?');">
+                                <button type="submit" class="btn-remove">Xóa</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </section>
+
+</body>
+</html>

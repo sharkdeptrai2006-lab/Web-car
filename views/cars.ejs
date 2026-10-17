@@ -1,0 +1,60 @@
+<!-- views/cars.ejs -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách xe - Mercedes-Benz Car Shop</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include('partials/header') %>
+
+    <section class="featured-cars">
+        <h2>Danh sách xe Mercedes-Benz</h2>
+
+        <!-- Form tìm kiếm -->
+        <form action="/cars" method="GET" style="margin-bottom: 30px;">
+            <input 
+                type="text" 
+                name="search" 
+                value="<%= search %>" 
+                placeholder="Tìm theo tên xe hoặc model..."
+                style="padding: 10px; width: 300px; border: 1px solid #ccc; border-radius: 4px;"
+            >
+            <button type="submit" class="btn-dark" style="padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">
+                Tìm kiếm
+            </button>
+        </form>
+
+        <!-- Danh sách xe -->
+        <% if (cars.length === 0) { %>
+            <p>Không tìm thấy xe nào phù hợp.</p>
+        <% } else { %>
+            <div class="car-grid">
+                <% cars.forEach(car => { %>
+                    <div class="car-card">
+                        <img src="/images/<%= car.Image %>" alt="<%= car.CarName %>" onerror="this.src='https://via.placeholder.com/300x180?text=Mercedes-Benz'">
+                        <div class="car-card-body">
+                            <h3><%= car.CarName %></h3>
+                            <p class="category"><%= car.CategoryName %> · <%= car.Year %></p>
+                            <p class="price"><%= car.Price.toLocaleString('vi-VN') %> VNĐ</p>
+                            <div class="btn-group">
+                                <a href="/cars/<%= car.CarID %>" class="btn-outline">Xem chi tiết</a>
+                                <form action="/cart/add" method="POST" style="display: inline;">
+                                    <input type="hidden" name="carId" value="<%= car.CarID %>">
+                                    <button type="submit" class="btn-dark" style="border: none; cursor: pointer;">Thêm vào giỏ</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } %>
+    </section>
+
+    <%- include('partials/footer') %>
+
+</body>
+</html>

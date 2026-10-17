@@ -1,0 +1,44 @@
+<!-- views/home.ejs -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercedes-Benz Car Shop</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include('partials/header') %>
+
+    <section class="banner">
+        <div class="banner-content">
+            <h1>Mercedes-Benz</h1>
+            <p>Khẳng định đẳng cấp</p>
+            <a href="/cars" class="btn-primary">Khám phá xe</a>
+        </div>
+    </section>
+
+        <section class="featured-cars">
+        <h2>Xe nổi bật</h2>
+        <div class="car-grid">
+            <% featuredCars.forEach(car => { %>
+                <div class="car-card">
+                    <img src="/images/<%= car.Image %>" alt="<%= car.CarName %>" onerror="this.src='https://via.placeholder.com/300x180?text=Mercedes-Benz'">
+                    <div class="car-card-body">
+                        <h3><%= car.CarName %></h3>
+                        <p class="category"><%= car.CategoryName %> · <%= car.Year %></p>
+                        <p class="price"><%= car.Price.toLocaleString('vi-VN') %> VNĐ</p>
+                        <div class="btn-group">
+                            <a href="/cars/<%= car.CarID %>" class="btn-outline">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+</body>
+</html>

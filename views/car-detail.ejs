@@ -1,0 +1,55 @@
+<!-- views/car-detail.ejs -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= car.CarName %> - Mercedes-Benz Car Shop</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include('partials/header') %>
+
+    <section class="car-detail-section">
+        <div class="car-detail-container">
+
+            <div class="car-detail-image">
+                <img src="/images/<%= car.Image %>" alt="<%= car.CarName %>" onerror="this.src='https://via.placeholder.com/500x350?text=Mercedes-Benz'">
+            </div>
+
+            <div class="car-detail-info">
+                <p class="category"><%= car.CategoryName %></p>
+                <h1><%= car.CarName %></h1>
+                <p class="price"><%= car.Price.toLocaleString('vi-VN') %> VNĐ</p>
+
+                <table class="spec-table">
+                    <tr><td>Model</td><td><%= car.Model %></td></tr>
+                    <tr><td>Năm sản xuất</td><td><%= car.Year %></td></tr>
+                    <tr><td>Màu sắc</td><td><%= car.Color %></td></tr>
+                    <tr><td>Động cơ</td><td><%= car.Engine %></td></tr>
+                    <tr><td>Công suất</td><td><%= car.Horsepower %> HP</td></tr>
+                    <tr><td>Nhiên liệu</td><td><%= car.FuelType %></td></tr>
+                    <tr><td>Hộp số</td><td><%= car.Transmission %></td></tr>
+                    <tr><td>Số ghế</td><td><%= car.Seats %></td></tr>
+                    <tr><td>Còn lại</td><td><%= car.Quantity %> xe</td></tr>
+                </table>
+
+                <p class="description"><%= car.Description %></p>
+
+                <div class="btn-group">
+                    <form action="/cart/add" method="POST" style="display: inline;">
+                        <input type="hidden" name="carId" value="<%= car.CarID %>">
+                        <button type="submit" class="btn-dark" style="border: none; cursor: pointer; padding: 12px 24px; border-radius: 4px; font-weight: bold;">Thêm vào giỏ</button>
+                    </form>
+                    <a href="#" class="btn-outline">Đặt xe</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+</body>
+</html>

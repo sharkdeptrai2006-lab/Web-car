@@ -1,0 +1,24 @@
+<!-- views/partials/header.ejs -->
+<!-- Phần header dùng chung cho tất cả các trang -->
+<header class="main-header">
+    <div class="header-container">
+        <div class="logo">MERCEDES-BENZ</div>
+        <nav class="main-nav">
+            <a href="/">Trang chủ</a>
+            <a href="/cars">Ô tô</a>
+            <a href="#">Dòng xe</a>
+            <a href="#">Giới thiệu</a>
+            <a href="#">Liên hệ</a>
+        </nav>
+        <div class="header-actions">
+            <% if (user) { %>
+            <span class="user-greeting">Xin chào, <%= user.fullName %></span>
+            <a href="/orders">Đơn hàng</a>
+            <a href="/logout">Đăng xuất</a>
+            <% } else { %>
+            <a href="/login">Đăng nhập</a>
+            <% } %>
+            <a href="/cart">Giỏ hàng</a>
+        </div>
+    </div>
+</header>

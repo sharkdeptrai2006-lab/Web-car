@@ -1,0 +1,48 @@
+<!-- views/register.ejs -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký - Mercedes-Benz Car Shop</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include('partials/header') %>
+
+    <section class="auth-section">
+        <div class="auth-box">
+            <h2>Đăng ký tài khoản</h2>
+
+            <% if (error) { %>
+                <p class="auth-error"><%= error %></p>
+            <% } %>
+
+            <form action="/register" method="POST">
+                <label>Họ tên</label>
+                <input type="text" name="fullName" required>
+
+                <label>Email</label>
+                <input type="email" name="email" required>
+
+                <label>Mật khẩu</label>
+                <input type="password" name="password" required minlength="6">
+
+                <label>Số điện thoại</label>
+                <input type="text" name="phone" required>
+
+                <label>Địa chỉ</label>
+                <input type="text" name="address" required>
+
+                <button type="submit" class="btn-dark auth-submit">Đăng ký</button>
+            </form>
+
+            <p class="auth-switch">Đã có tài khoản? <a href="/login">Đăng nhập ngay</a></p>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+</body>
+</html>

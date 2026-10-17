@@ -1,0 +1,61 @@
+<!-- views/checkout.ejs -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán - Mercedes-Benz Car Shop</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include('partials/header') %>
+
+    <section class="checkout-section">
+        <h2>Thông tin đặt xe</h2>
+
+        <% if (error) { %>
+            <p class="auth-error"><%= error %></p>
+        <% } %>
+
+        <div class="checkout-container">
+
+            <form action="/checkout" method="POST" class="checkout-form">
+                <label>Họ tên người nhận</label>
+                <input type="text" name="customerName" value="<%= user.fullName %>" required>
+
+                <label>Số điện thoại</label>
+                <input type="text" name="phone" required>
+
+                <label>Email</label>
+                <input type="email" name="email" value="<%= user.email %>" required>
+
+                <label>Địa chỉ nhận xe</label>
+                <input type="text" name="address" required>
+
+                <label>Ghi chú (không bắt buộc)</label>
+                <textarea name="note" rows="3"></textarea>
+
+                <button type="submit" class="btn-dark auth-submit">Xác nhận đặt xe</button>
+            </form>
+
+            <div class="checkout-summary">
+                <h3>Đơn hàng của bạn</h3>
+                <% cart.forEach(item => { %>
+                    <div class="checkout-item">
+                        <span><%= item.carName %> x<%= item.quantity %></span>
+                        <span><%= (item.price * item.quantity).toLocaleString('vi-VN') %> VNĐ</span>
+                    </div>
+                <% }) %>
+                <div class="checkout-total">
+                    <strong>Tổng cộng: <%= total.toLocaleString('vi-VN') %> VNĐ</strong>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+</body>
+</html>

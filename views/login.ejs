@@ -1,0 +1,39 @@
+<!-- views/login.ejs -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Mercedes-Benz Car Shop</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include('partials/header') %>
+
+    <section class="auth-section">
+        <div class="auth-box">
+            <h2>Đăng nhập</h2>
+
+            <% if (error) { %>
+                <p class="auth-error"><%= error %></p>
+            <% } %>
+
+            <form action="/login" method="POST">
+                <label>Email</label>
+                <input type="email" name="email" required>
+
+                <label>Mật khẩu</label>
+                <input type="password" name="password" required>
+
+                <button type="submit" class="btn-dark auth-submit">Đăng nhập</button>
+            </form>
+
+            <p class="auth-switch">Chưa có tài khoản? <a href="/register">Đăng ký ngay</a></p>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
+
+</body>
+</html>

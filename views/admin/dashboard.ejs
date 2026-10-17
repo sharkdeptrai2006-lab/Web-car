@@ -1,0 +1,38 @@
+<!-- views/admin/dashboard.ejs -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Mercedes-Benz Car Shop</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include('../partials/admin-header') %>
+
+    <section class="admin-content">
+        <h2>Dashboard</h2>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <p class="stat-label">Tổng xe</p>
+                <p class="stat-value"><%= totalCars %></p>
+            </div>
+            <div class="stat-card">
+                <p class="stat-label">Tổng người dùng</p>
+                <p class="stat-value"><%= totalUsers %></p>
+            </div>
+            <div class="stat-card">
+                <p class="stat-label">Tổng đơn hàng</p>
+                <p class="stat-value"><%= totalOrders %></p>
+            </div>
+            <div class="stat-card">
+                <p class="stat-label">Tổng doanh thu</p>
+                <p class="stat-value"><%= totalRevenue.toLocaleString('vi-VN') %> VNĐ</p>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

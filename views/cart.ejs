@@ -1,0 +1,68 @@
+<!-- views/cart.ejs -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng - Mercedes-Benz Car Shop</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include('partials/header') %>
+
+    <section class="cart-section">
+        <h2>Giỏ hàng của bạn</h2>
+
+        <% if (cart.length === 0) { %>
+            <p>Giỏ hàng đang trống. <a href="/cars">Xem danh sách xe</a></p>
+        <% } else { %>
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Xe</th>
+                        <th>Đơn giá</th>
+                        <th>Số lượng</th>
+                        <th>Thành tiền</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% cart.forEach(item => { %>
+                        <tr>
+                            <td class="cart-item-name">
+                                <img src="/images/<%= item.image %>" onerror="this.src='https://via.placeholder.com/60x60?text=MB'">
+                                <%= item.carName %>
+                            </td>
+                            <td><%= item.price.toLocaleString('vi-VN') %> VNĐ</td>
+                            <td>
+                                <form action="/cart/update" method="POST" class="qty-form">
+                                    <input type="hidden" name="carId" value="<%= item.carId %>">
+                                    <button type="submit" name="action" value="decrease">−</button>
+                                    <span><%= item.quantity %></span>
+                                    <button type="submit" name="action" value="increase">+</button>
+                                </form>
+                            </td>
+                            <td><%= (item.price * item.quantity).toLocaleString('vi-VN') %> VNĐ</td>
+                            <td>
+                                <form action="/cart/remove" method="POST">
+                                    <input type="hidden" name="carId" value="<%= item.carId %>">
+                                    <button type="submit" class="btn-remove">Xóa</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+
+            <div class="cart-total">
+                <p>Tổng cộng: <strong><%= total.toLocaleString('vi-VN') %> VNĐ</strong></p>
+                <a href="/checkout" class="btn-dark">Tiến hành đặt xe</a>
+            </div>
+        <% } %>
+    </section>
+
+    <%- include('partials/footer') %>
+
+</body>
+</html>

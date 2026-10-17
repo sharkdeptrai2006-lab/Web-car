@@ -1,0 +1,54 @@
+<!-- views/admin/orders.ejs -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý đơn hàng - Admin</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include('../partials/admin-header') %>
+
+    <section class="admin-content">
+        <h2>Quản lý đơn hàng</h2>
+
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Khách hàng</th>
+                    <th>Ngày đặt</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                    <th>Cập nhật</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% orders.forEach(order => { %>
+                    <tr>
+                        <td>#<%= order.OrderID %></td>
+                        <td><%= order.CustomerName %> (<%= order.UserFullName %>)</td>
+                        <td><%= new Date(order.OrderDate).toLocaleDateString('vi-VN') %></td>
+                        <td><%= order.TotalAmount.toLocaleString('vi-VN') %> VNĐ</td>
+                        <td><span class="order-status status-<%= order.Status.toLowerCase() %>"><%= order.Status %></span></td>
+                        <td>
+                            <form action="/admin/orders/update-status/<%= order.OrderID %>" method="POST" class="qty-form">
+                                <select name="status">
+                                    <option value="PENDING" <%= order.Status === 'PENDING' ? 'selected' : '' %>>PENDING</option>
+                                    <option value="CONFIRMED" <%= order.Status === 'CONFIRMED' ? 'selected' : '' %>>CONFIRMED</option>
+                                    <option value="COMPLETED" <%= order.Status === 'COMPLETED' ? 'selected' : '' %>>COMPLETED</option>
+                                    <option value="CANCELLED" <%= order.Status === 'CANCELLED' ? 'selected' : '' %>>CANCELLED</option>
+                                </select>
+                                <button type="submit" class="btn-outline" style="padding: 6px 12px;">Lưu</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </section>
+
+</body>
+</html>

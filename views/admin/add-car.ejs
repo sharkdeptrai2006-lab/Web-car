@@ -1,0 +1,103 @@
+<!-- views/admin/add-car.ejs -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm xe mới - Admin</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <%- include('../partials/admin-header') %>
+
+    <section class="admin-content">
+        <h2>Thêm xe mới</h2>
+
+        <% if (error) { %>
+            <p class="auth-error"><%= error %></p>
+        <% } %>
+
+        <form action="/admin/cars/add" method="POST" class="admin-form">
+            <div class="form-row">
+                <div>
+                    <label>Tên xe</label>
+                    <input type="text" name="carName" required>
+                </div>
+                <div>
+                    <label>Model</label>
+                    <input type="text" name="model" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label>Danh mục</label>
+                    <select name="categoryId" required>
+                        <% categories.forEach(cat => { %>
+                            <option value="<%= cat.CategoryID %>"><%= cat.CategoryName %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div>
+                    <label>Giá (VNĐ)</label>
+                    <input type="number" name="price" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label>Năm sản xuất</label>
+                    <input type="number" name="year" required>
+                </div>
+                <div>
+                    <label>Màu sắc</label>
+                    <input type="text" name="color" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label>Động cơ</label>
+                    <input type="text" name="engine" required>
+                </div>
+                <div>
+                    <label>Công suất (HP)</label>
+                    <input type="number" name="horsepower" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label>Nhiên liệu</label>
+                    <input type="text" name="fuelType" required>
+                </div>
+                <div>
+                    <label>Hộp số</label>
+                    <input type="text" name="transmission" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
+                    <label>Số ghế</label>
+                    <input type="number" name="seats" required>
+                </div>
+                <div>
+                    <label>Số lượng trong kho</label>
+                    <input type="number" name="quantity" required>
+                </div>
+            </div>
+
+            <label>Tên file ảnh (ví dụ: c200.jpg)</label>
+            <input type="text" name="image" placeholder="c200.jpg">
+
+            <label>Mô tả</label>
+            <textarea name="description" rows="4" required></textarea>
+
+            <button type="submit" class="btn-dark auth-submit">Thêm xe</button>
+        </form>
+    </section>
+
+</body>
+</html>
